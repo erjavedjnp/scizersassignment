@@ -1,0 +1,91 @@
+<%- include('include/head') %>
+<div class="container" style="margin-top:30px">
+    <div class="row">
+        <div class="col-2 "> 
+            <!-- Button to Open the Modal -->
+            <button type="button" class="btn btn-primary btnargest" data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-plus" aria-hidden="true"></i> Add Contact
+            </button>
+        </div>
+        <div class="col-4 float-right" style="padding: 5px; border-bottom-width: 1px; border-bottom-color: gray; border-bottom-style: solid;">
+            <input type="text" class="form-control" placeholder="Search by Name" /></div> 
+      </div> 
+    <table class="table table-hover">
+        <thead>
+            <tr>
+              <th scope="col">S.N.</th>
+              <th scope="col">
+               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up as-cursor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+              </svg> 
+              Name</th>
+              <th scope="col"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up as-cursor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+              </svg> Mobile Number</th> 
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr> 
+              <td>1</td>
+              <td>Larry the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+      </table> 
+      
+</div>
+
+
+  
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content" style="padding: 10px;">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title"><centre>Fill Contact Detail</centre> </h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-2 paddingtext">Name</div>
+                <div class="col"><input type="text" class="form-control" placeholder="Enter name" /></div> 
+              </div>
+              <div class="row paddingapply">
+                <div class="col-2 paddingtext">Mobile N.</div>
+                <div class="col"><input type="number" class="form-control" placeholder="Enter Mobile Number" /></div> 
+              </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer"> 
+          <button type="button" class="btn btn-success" data-dismiss="modal">Save Contact</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  <script>
+   
+    const getAllContact=()=>{ 
+	  $.ajax({
+	   url: '/getAllContact', 
+	   //dataType: "jsonp",
+	   method:'get',
+	   data: { },
+	   jsonpCallback: 'callback',
+	   success: (result, status, xhr)=> { 
+		   console.log(result) 
+	   },
+	   error: (xhr, status, error)=> {
+		   alert('ff') 
+	   }
+	});
+   }
+
+   getAllContact()
+  </script>
+<%- include('include/footer') %>
