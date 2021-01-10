@@ -5,9 +5,6 @@ const ejs=require('ejs')
 const path=require('path')
 const port = process.env.PORT || 3000;
 
-//database connection
-const db = require('./src/models/db_connection')
-
 //used for  static pages css/js/images etc
 const publicDirectory=path.join(__dirname,'./public');
 app.use(express.static(publicDirectory));

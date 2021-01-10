@@ -1,46 +1,33 @@
 <%- include('include/head') %>
 <div class="container" style="margin-top:30px">
-    <div class="row">
-        <div class="col-2 "> 
+    <div class="row"> 
+        <div class="col-6"> 
             <!-- Button to Open the Modal -->
             <button type="button" class="btn btn-primary btnargest" data-toggle="modal" data-target="#myModal">
                 <i class="fa fa-plus" aria-hidden="true"></i> Add Contact
             </button>
         </div>
-        <div class="col-4 float-right" style="padding: 5px; border-bottom-width: 1px; border-bottom-color: gray; border-bottom-style: solid;">
-            <input type="text" class="form-control" placeholder="Search by Name" /></div> 
+        <div class="col-6 float-right" style="padding: 5px; border-bottom-width: 1px; border-bottom-color: gray; border-bottom-style: solid;">
+            <input type="text" class="form-control" placeholder="Search by Name or mobile number" id="search"/></div> 
       </div> 
     <table class="table table-hover">
         <thead>
             <tr>
               <th scope="col">S.N.</th>
-              <th scope="col">
-               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up as-cursor" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
-              </svg> 
-              Name</th>
-              <th scope="col"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up as-cursor" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
-              </svg> Mobile Number</th> 
+              <th scope="col">Name</th>
+              <th scope="col">Mobile Number</th> 
+              <th scope="col" colspan="2">Action</th> 
             </tr>
           </thead>
-          <tbody>
-            
-            <tr> 
-              <td>1</td>
-              <td>Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
+          <tbody id="tablebody"> 
           </tbody>
       </table> 
       
-</div>
-
-
+</div> 
   
   <!-- The Modal -->
   <div class="modal" id="myModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content" style="padding: 10px;">
   
         <!-- Modal Header -->
@@ -52,40 +39,268 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-2 paddingtext">Name</div>
-                <div class="col"><input type="text" class="form-control" placeholder="Enter name" /></div> 
+                <div class="col">
+                  <input type="text" id="name" class="form-control" placeholder="Enter name" required/>
+                  <div id="messageForName"></div>
+                </div> 
               </div>
               <div class="row paddingapply">
                 <div class="col-2 paddingtext">Mobile N.</div>
-                <div class="col"><input type="number" class="form-control" placeholder="Enter Mobile Number" /></div> 
+                <div class="col">
+                  <input type="number" id="mobile" class="form-control" placeholder="Enter Mobile Number" required/>
+                  <div id="messageForMobile"></div>
+                </div> 
               </div>
         </div>
   
         <!-- Modal footer -->
-        <div class="modal-footer"> 
-          <button type="button" class="btn btn-success" data-dismiss="modal">Save Contact</button>
+        <div class="modal-footer">  
+            <div id="displayMessage">
+           </div>
+          <button type="button" class="btn btn-success" id="submitFormData">Save Contact</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="myModal2">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="padding: 10px;">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title"><centre>Update Contact Detail</centre> </h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-2 paddingtext">Name</div>
+                <div class="col">
+                  <input type="hidden" id="updateid"/>
+                  <input type="text" id="updatename" class="form-control" placeholder="Enter name" required/>
+                  <div id="updatemessageForName"></div>
+                </div> 
+              </div>
+              <div class="row paddingapply">
+                <div class="col-2 paddingtext">Mobile N.</div>
+                <div class="col">
+                  <input type="number" id="updatemobile" class="form-control" placeholder="Enter Mobile Number" required/>
+                  <div id="updatemessageForMobile"></div>
+                </div> 
+              </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">  
+            <div id="updatedisplayMessage">
+           </div>
+          <button type="button" class="btn btn-warning" id="updatesubmitFormData">Update Contact</button>
         </div>
   
       </div>
     </div>
   </div>
   <script>
-   
-    const getAllContact=()=>{ 
+    //used for search data 
+let globalSearchData=''
+
+const getAllContact=()=>{ 
+  let data=''
+  if(globalSearchData!='')
+      data = globalSearchData
 	  $.ajax({
 	   url: '/getAllContact', 
 	   //dataType: "jsonp",
-	   method:'get',
-	   data: { },
+     method:'post',
+     data: {data:data}, 
 	   jsonpCallback: 'callback',
 	   success: (result, status, xhr)=> { 
-		   console.log(result) 
+      displayContact(result)
 	   },
 	   error: (xhr, status, error)=> {
-		   alert('ff') 
+		   alert('Some thing went wrong!') 
 	   }
 	});
+   } 
+
+
+     const deleteContactData=(id)=>{ 
+      var result = confirm("Are you sure want to delete ?");
+      if (!result) return false;
+	  $.ajax({
+	   url: '/deleteContact', 
+	   //dataType: "jsonp",
+     method:'post',
+     data: {id:id}, 
+	   jsonpCallback: 'callback',
+	   success: (result, status, xhr)=> {  
+      getAllContact()
+	   },
+	   error: (xhr, status, error)=> {
+		   alert('Some thing went wrong!') 
+	   }
+	    });
+   } 
+
+   const editContactData=(data)=>{ 
+	  $.ajax({
+	   url: '/editContact', 
+	   //dataType: "jsonp",
+     method:'post',
+     data: {data}, 
+	   jsonpCallback: 'callback',
+	   success: (result, status, xhr)=> { 
+      $('#updatedisplayMessage').html(result)
+      $("#updatedisplayMessage").show()   
+      $('#updatedisplayMessage').html(result)  
+      if ($("#updatedisplayMessage").is(":visible")) {
+        setTimeout(function() {$("#updatedisplayMessage").hide();},5*1000); //hide message after 5 second
+      }  
+      getAllContact()
+	   },
+	   error: (xhr, status, error)=> {
+		   alert('Some thing went wrong!') 
+	   }
+	    });
+   } 
+
+   const getDataWithId=(id)=>{ 
+	  $.ajax({
+	   url: '/getDataWithID', 
+	   //dataType: "jsonp",
+     method:'post',
+     data: {id:id}, 
+	   jsonpCallback: 'callback',
+	   success: (result, status, xhr)=> { 
+      $('#updatename').val(result.name) 
+      $('#updatemobile').val(result.mobile)
+	   },
+	   error: (xhr, status, error)=> {
+		   alert('Some thing went wrong!') 
+	   }
+	    });
+   } 
+ 
+function editContact(id){
+  $('#updateid').val(id) 
+  getDataWithId(id)
+  $('#myModal2').modal('show'); 
+}
+
+function deleteContact(id){
+  deleteContactData(id) 
+}
+function resetFormfield(){
+  $('#name').val('') 
+  $('#mobile').val('') 
+ }
+
+     const displayContact = (data)=>{
+       var tabledata, count=1
+       if(!data.length) {
+        $('#tablebody').html("<tr><td colspan='4'>Your contact list is empty</td></tr>")  
+        return;
+       }
+     if(data) console.log('ok')  
+     data.forEach(element => {
+       tabledata += " <tr> "+
+             " <td>"+ count++ +"</td>"+
+              "<td>"+element.name+"</td>"+
+              "<td>"+element.mobile+"</td>"+
+              "<td>"+
+                "<i class='fa fa-pencil-square-o as-cursor' aria-hidden='true' "+
+                "onclick='"+
+                "editContact(\"" + element._id + "\")"+
+                "'>"+
+                " Edit</i>"+
+                "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-pencil-square-o as-cursor' aria-hidden='true' onclick='deleteContact(\"" + element._id + "\")'> Delete</i>"+
+                "</td>"+
+            "</tr>";
+     });
+     $('#tablebody').html(tabledata)
    }
 
+  
+   const addContactData=(data)=>{ 
+	  $.ajax({
+	   url: '/addtoContactData',  
+	   method:'post',
+	   data: {contact : data},
+	   jsonpCallback: 'callback',
+	   success: (result, status, xhr)=> {
+      resetFormfield()
+      $("#displayMessage").show()   
+      $('#displayMessage').html(result)  
+      if ($("#displayMessage").is(":visible")) {
+        setTimeout(function() {$("#displayMessage").hide();},5*1000); //hide message after 5 second
+      }  
+      getAllContact()
+	   },
+	   error: (xhr, status, error)=> {
+      $('#displayMessage').addClass('text-danger')
+      $('#displayMessage').html('Something went wrong!')
+      alert('Some thing went wrong!') 
+	   }
+	});
+   } 
+
+   //fetch data from database when page is loaded first time
    getAllContact()
+  
+   $('#submitFormData').click(()=>{
+   var name =  $('#name').val().trim()
+   var mobile = $('#mobile').val().trim()
+   if(name=='' || name==='' )
+      {
+        $('#messageForName').html("<p class='text-danger'>Name Field is required</p>")
+        return false;
+      } else {
+        $('#messageForName').html('') 
+      }
+      if(mobile=='' || mobile==='' )
+      {
+        $('#messageForMobile').html("<p class='text-danger'>Mobile Field is required</p>")
+        return false;
+      } else  
+      {
+        $('#messageForMobile').html('') 
+      }
+    
+   var data = {name : name, mobile : mobile} 
+   addContactData(data)
+   })
+ 
+  $('#updatesubmitFormData').click(()=>{
+    var name =  $('#updatename').val().trim()
+   var mobile = $('#updatemobile').val().trim()
+   var id = $('#updateid').val()
+   if(name=='' || name==='' )
+      {
+        $('#updatemessageForName').html("<p class='text-danger'>Name Field is required</p>")
+        return false;
+      } else {
+        $('#updatemessageForName').html('') 
+      }
+      if(mobile=='' || mobile==='' )
+      {
+        $('#updatemessageForMobile').html("<p class='text-danger'>Mobile Field is required</p>")
+        return false;
+      } else  
+      {
+        $('#updatemessageForMobile').html('') 
+      }
+    
+   var data = {name : name, mobile : mobile, id:id} 
+    editContactData(data) 
+  })
+
+  $("#search").keyup( function() {
+    var searchData = $("#search").val().trim(); 
+    globalSearchData = searchData
+    getAllContact()
+    //console.log(data) 
+});
   </script>
 <%- include('include/footer') %>
